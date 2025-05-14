@@ -59,7 +59,7 @@
     "@effect/sql-sqlite-node": "workspace:^",
     "@testcontainers/mysql": "^10.25.0",
     "@testcontainers/postgresql": "^10.25.0",
-    "drizzle-orm": "^0.43.1",
+    "drizzle-orm": "0.42.0",
     "effect": "workspace:^"
   },
   "peerDependencies": {
