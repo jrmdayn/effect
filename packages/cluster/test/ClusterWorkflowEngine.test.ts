@@ -13,7 +13,7 @@ import { WorkflowInstance } from "@effect/workflow/WorkflowEngine"
 import { DateTime, Effect, Exit, Fiber, Layer, Schema, TestClock } from "effect"
 
 describe.concurrent("ClusterWorkflowEngine", () => {
-  it.effect("should run a workflow", () =>
+  it.effect.only("should run a workflow", () =>
     Effect.gen(function*() {
       const sharding = yield* Sharding.Sharding
       const driver = yield* MessageStorage.MemoryDriver
@@ -52,10 +52,16 @@ describe.concurrent("ClusterWorkflowEngine", () => {
       const token = yield* DurableDeferred.token(EmailTrigger).pipe(
         Effect.provideService(WorkflowInstance, WorkflowInstance.initial(EmailWorkflow, executionId))
       )
+      // -> ExitEncoded error
       yield* DurableDeferred.done(EmailTrigger, {
         token,
-        exit: Exit.void
+        exit: Exit.succeed("foo")
       })
+      // // Same problem with the succeed API
+      // yield* DurableDeferred.succeed(EmailTrigger, {
+      //   token,
+      //   value: "foo"
+      // })
       yield* sharding.pollStorage
 
       // - 1 DurableDeferred set
@@ -283,7 +289,7 @@ const EmailWorkflowLayer = EmailWorkflow.toLayer(Effect.fn(function*(payload) {
   Layer.provideMerge(Flags.Default)
 )
 
-const EmailTrigger = DurableDeferred.make("EmailTrigger")
+const EmailTrigger = DurableDeferred.make("EmailTrigger", { success: Schema.String })
 
 const RaceWorkflow = Workflow.make({
   name: "RaceWorkflow",
