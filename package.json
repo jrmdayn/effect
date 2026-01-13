@@ -32,6 +32,7 @@
     "detective-typescript": "^11.1.0"
   },
   "devDependencies": {
+    "@ast-grep/cli": "0.40.5",
     "@babel/cli": "^7.27.2",
     "@babel/core": "^7.27.1",
     "@babel/plugin-transform-export-namespace-from": "^7.27.1",
@@ -91,6 +92,7 @@
       "workerd"
     ],
     "onlyBuiltDependencies": [
+      "@ast-grep/cli",
       "better-sqlite3"
     ]
   }

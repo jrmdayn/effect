@@ -28,7 +28,8 @@
   },
   "eslint.validate": ["markdown", "javascript", "typescript"],
   "editor.codeActionsOnSave": {
-    "source.fixAll.eslint": "explicit"
+    "source.fixAll.eslint": "explicit",
+    "source.fixAll.ast-grep": "explicit"
   },
   "editor.quickSuggestions": {
     "other": true,
@@ -44,5 +45,6 @@
   "editor.suggestSelection": "recentlyUsed",
   "editor.wordBasedSuggestions": "matchingDocuments",
   "editor.parameterHints.enabled": true,
-  "files.insertFinalNewline": true
+  "files.insertFinalNewline": true,
+  "astGrep.serverPath": "node_modules/.bin/ast-grep"
 }
